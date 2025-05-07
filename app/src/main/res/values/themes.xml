@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="Theme.YourTV" parent="@style/Theme.AppCompat.DayNight">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+</resources>

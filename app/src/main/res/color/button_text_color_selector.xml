@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 焦点状态 -->
+    <item android:state_focused="true" android:color="#FFFFFF" /> <!-- 焦点时白色文字 -->
+    <!-- 非焦点状态 -->
+    <item android:color="#BBBBBB" /> <!-- 非焦点时灰色文字 -->
+</selector>

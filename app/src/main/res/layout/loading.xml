@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="400dp"
+        android:minHeight="200dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/bar"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:indeterminateTint="@color/white" />
+
+        <TextView
+            android:id="@+id/loading_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="正在加載..."
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/loading_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#FF4081"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/loading_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#FF4081"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/valid_key_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:textSize="16sp"
+            android:textColor="#FF0000"
+            android:gravity="center"
+            android:visibility="gone"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="12dp" />
+
+        <!-- 输入框 -->
+        <EditText
+            android:id="@+id/key_input"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:hint="請輸入測試碼 (0-9, A-Z)"
+            android:textSize="20sp"
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLength="20"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edit_text_border_selector"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:gravity="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/confirm_button"
+            android:nextFocusUp="@id/confirm_button"/>
+
+        <!-- 按钮容器 -->
+        <LinearLayout
+            android:id="@+id/button_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="確認"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusUp="@id/key_input"
+                android:nextFocusRight="@id/skip_button"
+                android:background="@drawable/button_focus_selector"
+                android:textColor="@color/button_text_color_selector"
+                android:padding="12dp" />
+
+            <Button
+                android:id="@+id/skip_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳過"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusLeft="@id/confirm_button"
+                android:nextFocusUp="@id/key_input"
+                android:background="@drawable/button_focus_selector"
+                android:textColor="@color/button_text_color_selector"
+                android:padding="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,49 @@
+name: 問題反饋
+description: 使用過程中遇到的錯誤或不合理功能
+labels: [ "bug" ]
+title: "[BUG] "
+body:
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 提問題前請檢查
+      description: 確認問題依然存在
+      options:
+        - label: 已檢查過問題列表，沒有人提過相同問題
+          required: true
+        - label: 軟件的最新版本依然沒有被修復
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 軟件版本
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: 電視品牌
+    validations:
+      required: true
+
+  - type: input
+    id: android
+    attributes:
+      label: Android版本
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug
+    attributes:
+      label: 問題描述
+      description: 請描述下問題的具體細節
+      placeholder: |
+        1. 錯誤表現
+        2. 如何復現
+        3. 想法建議
+    validations:
+      required: true
+

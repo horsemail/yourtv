@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+    <FrameLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/channel"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="170dp"
+            android:gravity="end|bottom" >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:textSize="36sp"
+                tools:text="999"
+                android:layout_alignBaseline="@+id/time"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:textSize="30sp"
+                tools:text="12:34:56" />
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

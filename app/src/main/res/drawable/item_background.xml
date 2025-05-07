@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="#FF4081" /> <!-- 焦点时粉色背景 -->
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#80000000" /> <!-- 非焦点时半透灰色 -->
+        </shape>
+    </item>
+</selector>

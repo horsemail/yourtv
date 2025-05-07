@@ -1,0 +1,89 @@
+name: build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Run build with Gradle wrapper
+        run: ./gradlew clean && ./gradlew assembleRelease
+
+      - name: Sign app APK
+        id: sign_app
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          alias: ${{ secrets.ALIAS }}
+          signingKeyBase64: ${{ secrets.KEYSTORE }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ALIAS_PASSWORD }}
+        env:
+          # override default build-tools version (29.0.3) -- optional
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Get History
+        id: get_history
+        run: |
+          chmod +x history.sh
+          output=$(./history.sh)
+          echo "$output" > history.md
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          body_path: history.md
+
+      - name: Set Asset Name
+        id: set_asset_name
+        run: |
+          VERSION_WITHOUT_V=$(echo '${{ github.ref_name }}' | sed 's/^v//')
+          echo "asset_name=my-tv-0_${VERSION_WITHOUT_V}.apk" >> $GITHUB_ENV
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          asset_name: ${{ env.asset_name }}
+          asset_content_type: application/vnd.android.package-archive
+
+#      - name: Gitee Create Release
+#        run: |
+#          latest_commit=$(git rev-parse HEAD)
+#          history=$(cat history.md)
+#          curl -v POST https://gitee.com/api/v5/repos/${{ github.repository }}/releases \
+#          -H "Content-Type: application/json" \
+#          -d '{
+#            "access_token": "${{ secrets.GITEE_ACCESS_TOKEN}}",
+#            "tag_name": "${{ github.ref_name }}",
+#            "name": "Release ${{ github.ref_name }}",
+#            "body": "'"$history"'",
+#            "prerelease": false,
+#            "target_commitish": "'"$latest_commit"'"
+#          }'

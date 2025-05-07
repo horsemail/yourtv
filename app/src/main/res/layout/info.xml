@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/info"
+            android:layout_width="400dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_dark_left"
+                android:padding="10dp"
+
+                />
+            <LinearLayout
+                    android:id="@+id/main"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:background="@drawable/rounded_dark_right"
+                    android:gravity="start|center_vertical"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:textColor="@color/title_blur"
+                        android:textSize="20sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="8dp"
+                        android:gravity="start"
+                        android:singleLine="true"
+                        android:textColor="@color/description_blur"
+                        android:textSize="14sp" />
+                </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
