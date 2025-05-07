@@ -1162,6 +1162,22 @@ class MainActivity : AppCompatActivity() {
         isSafeToPerformFragmentTransactions = false
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop called, isInPictureInPictureMode=${playerFragment.isInPictureInPictureMode}")
+        if (playerFragment.isAdded && playerFragment.isInPictureInPictureMode) {
+            Log.d(TAG, "PiP window closed via 'X' button, stopping player and exiting app")
+            if (playerFragment.player != null) {
+                playerFragment.player?.stop()
+                playerFragment.player?.release()
+                playerFragment.player = null
+                Log.d(TAG, "Stopped and released player")
+            }
+            finish()
+            Log.d(TAG, "Exiting app due to PiP 'X' button")
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         server?.stop()

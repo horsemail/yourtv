@@ -53,11 +53,11 @@ class PlayerFragment : Fragment() {
     private var _binding: PlayerBinding? = null
     private val binding get() = _binding!!
 
-    private var player: ExoPlayer? = null
+    internal var player: ExoPlayer? = null
     private var tvModel: TVModel? = null
 
     private val aspectRatio = 16f / 9f
-    private var isInPictureInPictureMode = false
+    internal var isInPictureInPictureMode = false
 
     private val handler = Handler(Looper.myLooper()!!)
     private val delayHideVolume = 2 * 1000L
