@@ -1122,14 +1122,6 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            // 仅在触摸屏设备上，且 PlayerFragment 可见时，按返回键进入画中画
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                isTouchScreenDevice() &&
-                playerFragment.isAdded && !playerFragment.isHidden) {
-                playerFragment.enterPictureInPictureMode()
-                return true
-            }
-            // 原有返回逻辑
             back()
             return true
         }
