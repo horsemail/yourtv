@@ -99,19 +99,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // 新增：冷启动时禁用用户输入和画中画，直到 listModel 初始化
-        if (savedInstanceState == null) {
-            Log.d(TAG, "Cold start detected, disabling user input until listModel initialized")
-            isInputDisabled = true
-            viewModel.channelsOk.observe(this) { isInitialized ->
-                if (isInitialized) {
-                    isInputDisabled = false
-                    Log.d(TAG, "listModel initialized, user input enabled")
-                }
-            }
-        }
-
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // 简化全屏设置
@@ -128,6 +115,19 @@ class MainActivity : AppCompatActivity() {
 
         // 初始化 ViewModel
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        // 新增：冷启动时禁用用户输入和画中画，直到 listModel 初始化
+        if (savedInstanceState == null) {
+            Log.d(TAG, "Cold start detected, disabling user input until listModel initialized")
+            isInputDisabled = true
+            viewModel.channelsOk.observe(this) { isInitialized ->
+                if (isInitialized) {
+                    isInputDisabled = false
+                    Log.d(TAG, "listModel initialized, user input enabled")
+                }
+            }
+        }
+
         // 确保焦点
         findViewById<View>(R.id.main_browse_fragment)?.requestFocus()
 
