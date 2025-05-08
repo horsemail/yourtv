@@ -23,40 +23,9 @@
 * 為了使用方便，只支持設置3位頻道號
 * 目前設置代理後，需要重啟生效。代理屬於全局代理，也就是視頻請求及其他請求都會使用代理。
 
-目前支持的配置格式：
+## 加密解密資源文件
 
-* txt
-    ```
-    組名,#genre#
-    標題,視頻地址
-    ```
-* m3u
-    ```
-    #EXTM3U x-tvg-url=""
-    #EXTINF:-1 tvg-id="" tvg-chno="" tvg-name="標準標題" tvg-logo="图标" group-title="組名",標題
-    #EXTVLCOPT:http-user-agent=
-    #EXTVLCOPT:http-referrer=
-    視頻地址
-    ```
-* json
-    ```json
-    [
-      {
-        "group": "組名",
-        "name": "標準標題",
-        "title": "標題",
-        "logo": "图标",
-        "number": "頻道號",
-        "uris": [
-          "視頻地址"
-        ],
-        "headers": {
-          "user-agent": ""
-        }
-      }
-    ]
-    ```
-
+https://tvboxcrypto.horsenma.net/
 
 下載安裝 [releases](https://github.com/horsemail/yourtv/releases/)
 
