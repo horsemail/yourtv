@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
     internal var usersInfo: List<String> = emptyList()
     private var isLoadingInputVisible = false
 
+    // 新增：禁用用户输入和画中画标志
+    private var isInputDisabled = false
+
     fun setLoadingInputVisible(visible: Boolean) {
         isLoadingInputVisible = visible
     }
@@ -96,6 +99,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 新增：冷启动时禁用用户输入和画中画，直到 listModel 初始化
+        if (savedInstanceState == null) {
+            Log.d(TAG, "Cold start detected, disabling user input until listModel initialized")
+            isInputDisabled = true
+            viewModel.channelsOk.observe(this) { isInitialized ->
+                if (isInitialized) {
+                    isInputDisabled = false
+                    Log.d(TAG, "listModel initialized, user input enabled")
+                }
+            }
+        }
+
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // 简化全屏设置
@@ -378,6 +394,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        // 新增：禁用用户输入时拦截触摸
+        if (isInputDisabled) {
+            Log.d(TAG, "Touch input blocked until listModel initialized")
+            return true
+        }
+
         if (event != null && menuFragment.isVisible) {
             return super.onTouchEvent(event)
         }
@@ -1074,6 +1096,12 @@ class MainActivity : AppCompatActivity() {
 
     // 处理主页按钮点击（圆圈虚拟按钮）
     override fun onUserLeaveHint() {
+        // 新增：禁用用户输入时阻止画中画
+        if (isInputDisabled) {
+            Log.d(TAG, "Picture-in-Picture blocked until listModel initialized")
+            return
+        }
+
         // 仅在触摸屏设备上，且 PlayerFragment 可见时，进入画中画模式
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
             isTouchScreenDevice() &&
@@ -1088,6 +1116,11 @@ class MainActivity : AppCompatActivity() {
 
     // 保留原有 onKeyDown，仅处理返回键
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        // 新增：禁用用户输入时拦截按键
+        if (isInputDisabled) {
+            Log.d(TAG, "Key input blocked until listModel initialized, keyCode=$keyCode")
+            return true
+        }
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             // 仅在触摸屏设备上，且 PlayerFragment 可见时，按返回键进入画中画
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
@@ -1151,9 +1184,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         isSafeToPerformFragmentTransactions = true
-
         showTimeFragment()
     }
 
