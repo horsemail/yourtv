@@ -1164,17 +1164,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "onStop called, isInPictureInPictureMode=${playerFragment.isInPictureInPictureMode}")
+        Log.d(TAG, "onStop: isInPictureInPictureMode=${playerFragment.isInPictureInPictureMode}")
         if (playerFragment.isAdded && playerFragment.isInPictureInPictureMode) {
-            Log.d(TAG, "PiP window closed via 'X' button, stopping player and exiting app")
+            Log.d(TAG, "Detected Picture-in-Picture 'X' button close")
+            // 停止播放器
             if (playerFragment.player != null) {
                 playerFragment.player?.stop()
                 playerFragment.player?.release()
                 playerFragment.player = null
                 Log.d(TAG, "Stopped and released player")
             }
-            finish()
-            Log.d(TAG, "Exiting app due to PiP 'X' button")
+            // 终止进程，等同于后台清理
+            finishAndRemoveTask()
+            android.os.Process.killProcess(android.os.Process.myPid())
+            Log.d(TAG, "Terminated process due to Picture-in-Picture 'X' button")
         }
     }
 
