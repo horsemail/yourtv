@@ -1175,7 +1175,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Stopped and released player")
             }
             // 终止进程，等同于后台清理
-            finishAndRemoveTask()
             android.os.Process.killProcess(android.os.Process.myPid())
             Log.d(TAG, "Terminated process due to Picture-in-Picture 'X' button")
         }
