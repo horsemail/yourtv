@@ -3,7 +3,7 @@
 
 電視視頻播放軟件，可以自定義視頻源
 
-[yourtv](https://github.com/horsemailma/yourtvapp)
+[yourtv](https://github.com/horsemail/yourtv)
 
 這是一個IPTV直播軟件，內置定期更新測試過的直播源。<br><br>
 測試碼：1234567890CDEFGHIJKL，有效期：2025年6月30日<br>
@@ -95,7 +95,7 @@ APP本身有自動切換直播源，你也可以手動切換直播源。<br>
 
 * 遇到問題可以先考慮重啟/恢復默認/清除數據/重新安裝等方式自助解決
 
-下載安裝 [releases](https://github.com/horsemailma/yourtvapp)
+下載安裝 [releases](https://github.com/horsemail/yourtv)
 
 注意，“*-kitkat”為安卓4.4兼容版本
 
@@ -125,3 +125,10 @@ adb install YourTV.apk
 
 [live](https://github.com/fanmingming/live)
 [my-tv-0](https://github.com/lizongying/my-tv-0)
+
+## 致歉
+
+本人並不懂代碼，更不懂開發，純粹現在空閒愛好打發時間。所有代碼都AI實現。
+github上很多功能也還不會用，發布版本APP啥的也还不会。现在直接上传到根目录下。
+
+
