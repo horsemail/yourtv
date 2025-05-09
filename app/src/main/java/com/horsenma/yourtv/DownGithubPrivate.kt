@@ -109,12 +109,12 @@ object DownGithubPrivate {
                 .proxy(
                     Proxy(
                         Proxy.Type.SOCKS,
-                        InetSocketAddress("138.2.231.49", 16971)
+                        InetSocketAddress("", )
                     )
                 )
                 .authenticator { _, response ->
                     // 设置代理认证
-                    val credential = "horsenma:991024Ma+"
+                    val credential = ""
                     val encodedCredential = "Basic " + Base64.encodeToString(credential.toByteArray(), Base64.NO_WRAP)
                     response.request.newBuilder()
                         .header("Proxy-Authorization", encodedCredential)
